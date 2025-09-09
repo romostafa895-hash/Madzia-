@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FOR MY BBY ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f172a; --bg2:#0b2545; --accent:#ff6b81; --glass: rgba(255,255,255,0.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Cairo',sans-serif;background:linear-gradient(120deg,var(--bg1),var(--bg2));color:#fff}
+    .wrap{min-height:100vh;display:grid;grid-template-columns:1fr;align-items:center;justify-items:center;padding:40px}
+
+    .card{width:100%;max-width:980px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));border-radius:18px;box-shadow:0 10px 30px rgba(2,6,23,0.6);overflow:hidden;display:grid;grid-template-columns:1fr 420px}
+    @media(max-width:880px){.card{grid-template-columns:1fr}.side{display:none}}
+
+    .main{padding:48px}
+    h1{margin:0 0 8px;font-size:36px;letter-spacing:1px}
+    p.lead{margin:0 0 18px;opacity:0.95}
+
+    .typewriter{font-weight:700;color:var(--accent);font-size:20px;height:28px}
+
+    .actions{display:flex;gap:12px;margin-top:22px}
+    .btn{padding:12px 18px;border-radius:12px;border:0;cursor:pointer;font-weight:700}
+    .btn-pink{background:linear-gradient(90deg,var(--accent),#ff9aa2);color:#111}
+    .btn-soft{background:transparent;border:1px solid rgba(255,255,255,0.08);color:#fff}
+
+    .side{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:28px;display:flex;flex-direction:column;gap:12px;align-items:center}
+    .photo{width:240px;height:240px;border-radius:20px;background:linear-gradient(135deg,#111,#222);overflow:hidden;position:relative}
+    .photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .caption{font-weight:700;margin-top:8px}
+    .hearts{position:absolute;left:18px;bottom:18px;display:flex;gap:6px}
+    .heart{width:22px;height:22px;border-radius:6px;background:var(--accent);transform:rotate(-20deg);opacity:0.95}
+
+    /* animated gradient background circles */
+    .bg-circles{position:fixed;inset:0;pointer-events:none;z-index:0;mix-blend-mode:screen}
+    .circle{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.45}
+    .c1{width:420px;height:420px;background:#ff7b9b;right:-120px;top:-80px}
+    .c2{width:320px;height:320px;background:#7be0ff;left:-100px;bottom:-60px}
+
+    /* confetti */
+    .confetti-piece{position:fixed;width:8px;height:14px;border-radius:2px;opacity:0;transform-origin:center;z-index:50}
+
+    footer{padding:18px;text-align:center;opacity:0.9;font-size:13px}
+
+    /* small decorative */
+    .music-toggle{position:absolute;right:18px;top:18px;background:var(--glass);padding:8px;border-radius:999px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+
+  </style>
+</head>
+<body>
+  <div class="bg-circles" aria-hidden>
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="card" role="main">
+      <div class="main">
+        <button class="music-toggle" id="musicToggle">Play music ♫</button>
+        <h1>When I saw you, everything changed ✨</h1>
+        <p class="lead">You are my favorite place to go when my mind searches for peace</p>
+
+        <div class="typewriter" id="typewriter"></div>
+
+        <div class="actions">
+ <button class="btn btn-pink" id="revealBtn">YOURES</button>
+          <button class="btn btn-soft" id="photoBtn">WANNA BE</button>
+          <button class="btn btn-soft" id="downloadBtn">I JUST</button>
+        </div>
+
+        <section style="margin-top:28px;padding:18px;background:rgba(255,255,255,0.02);border-radius:12px">
+          <h3 style="margin:0 0 8px">Special message 💌:</h3>
+          <p id="privateMsg" style="margin:0;line-height:1.6">My love, ever since you came into my life, everything has become brighter. You’re not just the person I love, you are my safe place, my happiness, and my favorite part of every day. I promise to always choose you, in every moment, in every lifetime. I love you endlessly. ❤️✨</p>
+        </section>
+
+      </div>
+
+      <aside class="side">
+        <div class="photo" id="photoFrame">
+          <!-- ضع رابط صورتكم هنا داخل عنصر <img> -->
+          <img id="mainImage" src="TOGETHER FOREVER.jpg" alt="صوركم">
+          <div class="hearts">
+            <div class="heart"></div>
+            <div class="heart" style="width:18px;height:18px;opacity:0.8"></div>
+          </div>
+        </div>
+        <div class="caption">EROO &amp; MADZIA</div>
+        <div style="opacity:0.85;font-size:13px;text-align:center">I didn’t believe in forever until I met you</div>
+      </aside>
+    </div>
+
+    <footer>I LOVE YOU MADZIA😊</footer>
+  </div>
+
+  <!-- confetti container -->
+  <div id="confetti"></div>
+
+  <audio id="bgAudio" loop src="I Wanna Be Yours(MP3_160K).mp3"></audio>
+
+  <script>
+    // ====== تعليمات سريعة (لو عايز تغير):
+    // - بدل رابط الصورة في عنصر <img id="mainImage" src="..."> برابط صورتكم الخاصة.
+    // - عدل نص الرسالة داخل العنصر <p id="privateMsg">.
+    // - لو عايز تضيف رسالة صوتية مسجلة: ضيف ملف صوتي جديد وغيّر src لـ bgAudio أو ضيف <audio> ثاني.
+
+    const phrases = [
+      'You are the best thing that ever happened to me',
+      'My favorite place will always be next to you',
+      'Every day with you is a celebration',
+      'My love you are the light that brightens my life'
+    ];
+
+    const tw = document.getElementById('typewriter');
+    let pi = 0; let ci = 0; let forward = true;
+    function step() {
+      const txt = phrases[pi];
+      if(forward){
+        ci++;
+        tw.textContent = txt.slice(0,ci);
+        if(ci===txt.length){forward=false;setTimeout(step,1800);return}
+      } else {
+        ci--;
+        tw.textContent = txt.slice(0,ci);
+        if(ci===0){forward=true;pi=(pi+1)%phrases.length}
+      }
+      setTimeout(step,100 + Math.random()*80);
+    }
+    step();
+
+    // reveal button -> confetti + heart animation + audio
+    document.getElementById('revealBtn').addEventListener('click', ()=>{
+      playConfetti();
+      pulsePhoto();
+      playAudio();
+    });
+
+    // music toggle
+    const bgAudio = document.getElementById('bgAudio');
+    const musicToggle = document.getElementById('musicToggle');
+    musicToggle.addEventListener('click', ()=>{
+      if(bgAudio.paused){bgAudio.play();musicToggle.textContent='Stop music ×'}else{bgAudio.pause();musicToggle.textContent='Play music ♫'}
+    });
+
+    function playAudio(){
+      bgAudio.currentTime = 0; bgAudio.play().catch(()=>{});
+    }
+
+    function pulsePhoto(){
+      const pf = document.getElementById('photoFrame');
+      pf.animate([{transform:'scale(1)'},{transform:'scale(1.05)'},{transform:'scale(1)'}],{duration:900,easing:'ease-out'});
+    }
+
+    // simple confetti
+    function playConfetti(){
+      const container = document.getElementById('confetti');
+      for(let i=0;i<40;i++){
+        const el = document.createElement('div');
+        el.className='confetti-piece';
+        el.style.left = Math.random()*100+'%';
+        el.style.top = (10+Math.random()*60)+'%';
+        el.style.background = ['#ff6b81','#ffd76b','#7be0ff','#9d7bff'][Math.floor(Math.random()*4)];
+        el.style.opacity = 1;
+        container.appendChild(el);
+        const dx = (Math.random()-0.5)*200;
+        const dy = 300 + Math.random()*300;
+        el.animate([
+          {transform:'translate(0,0) rotate(0deg)',opacity:1},
+          {transform:`translate(${dx}px,${dy}px) rotate(${Math.random()*720}deg)`,opacity:0}
+        ],{duration:1600+Math.random()*1000,iterations:1,easing:'cubic-bezier(.2,.6,.2,1)'});
+        setTimeout(()=>el.remove(),2200);
+      }
+    }
+
+    // small accessibility: allow keyboard to trigger reveal (Enter)
+    document.addEventListener('keydown',(e)=>{if(e.key==='Enter')document.getElementById('revealBtn').click()});
+
+  </script>
+</body>
+</html>
